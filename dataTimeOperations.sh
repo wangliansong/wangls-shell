@@ -11,3 +11,26 @@ END=`date +%F`
 #得到时间戳
 startTime=`date -d "$START" "+%s000"`
 endTime=`date -d "$END" "+%s000"`
+
+
+
+
+
+
+#这个得到输入时间当前一整月的时间戳
+#e.g. 输入20190110 得到20190101-20190131的时间戳
+day=$1
+#判断有没有输入参数，如果没有day给个默认值
+if [ -z "$day" ];then
+   day=`date +"%Y%m%d"`
+fi
+dataTime=`date -d"$day" +%Y%m`
+tmp_day_start=`date -d"$day" +%Y%m01`
+tmp_day_end1=`date -d"$day 1 month" +%Y%m01`
+tmp_day_end=`date -d"$tmp_day_end1 -1 day" +%Y%m%d`
+
+st_tmp=`date -d ${tmp_day_start} +%s`
+et_tmp=`date -d ${tmp_day_end} +%s`
+startTime=$[st_tmp*1000]
+endTime=$[et_tmp*1000]
+echo "startTime="$startTime "endTime="$endTime "dataTime="$dataTime
