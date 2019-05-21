@@ -34,3 +34,15 @@ et_tmp=`date -d ${tmp_day_end} +%s`
 startTime=$[st_tmp*1000]
 endTime=$[et_tmp*1000]
 echo "startTime="$startTime "endTime="$endTime "dataTime="$dataTime
+
+#输入2019-05-22
+#输出startTime=1558281600000,endTime=1558368000000
+#[22号0点到23号0点]
+START=$1
+if [ -z "$START" ];then
+  START=`date -d "-1 day" +"%Y-%m-%d"`
+fi
+END=`date -d "$START +1 day" +"%Y-%m-%d"`
+startTime=`date -d "$START" "+%s000"`
+endTime=`date -d "$END" "+%s000"`
+echo "startTime=$startTime","endTime="$endTime
